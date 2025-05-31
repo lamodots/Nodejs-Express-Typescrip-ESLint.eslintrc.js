@@ -1,0 +1,129 @@
+root: true
+parser: '@typescript-eslint/parser'
+parserOptions:
+  project: './tsconfig.json'
+  ecmaVersion: 2022
+  sourceType: 'module'
+  tsconfigRootDir: __dirname
+extends:
+  - airbnb-typescript/base
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - plugin:node/recommended-module
+  - plugin:unicorn/recommended
+  - plugin:sonarjs/recommended
+  - plugin:promise/recommended
+  - plugin:jest/recommended
+  - plugin:express/recommended
+  - prettier
+plugins:
+  - '@typescript-eslint'
+  - express
+  - no-relative-import-paths
+env:
+  node: true
+  es2022: true
+  jest: true
+rules:
+  node/no-unsupported-features/es-syntax: ['error', { ignores: ['modules'] }]
+  node/no-missing-import: off
+  node/file-extension-in-import: ['error', 'always', { '.ts': 'never' }]
+  express/use-error-handler: error
+  @typescript-eslint/consistent-type-imports: error
+  @typescript-eslint/no-unnecessary-type-assertion: error
+  @typescript-eslint/prefer-nullish-coalescing: error
+  @typescript-eslint/no-misused-promises:
+    - error
+    - checksVoidReturn:
+        attributes: false
+  security/detect-object-injection: off
+  security/detect-non-literal-fs-filename: error
+  express/avoid-unused-params: warn
+  express/require-error-handling: error
+  no-relative-import-paths/no-relative-import-paths:
+    - error
+    - allowSameFolder: true
+      prefix: '@'
+  import/order:
+    - error
+    -
+      groups:
+        - builtin
+        - external
+        - internal
+        - parent
+        - sibling
+        - index
+      newlines-between: always
+  sonarjs/cognitive-complexity:
+    - error
+    - 15
+  complexity:
+    - error
+    - 10
+  max-depth:
+    - error
+    - 4
+  max-params:
+    - error
+    - 5
+  unicorn/prevent-abbreviations:
+    - error
+    -
+      allowList:
+        req: true
+        res: true
+        err: true
+        env: true
+        params: true
+        config: true
+  unicorn/no-array-reduce: off
+  unicorn/prefer-module: off
+  unicorn/filename-case:
+    - error
+    -
+      cases:
+        camelCase: true
+        pascalCase: true
+      ignore:
+        - '*.d.ts'
+        - '*.config.ts'
+        - 'express.ts'
+  import/prefer-default-export: off
+  class-methods-use-this: off
+  no-underscore-dangle:
+    - error
+    - allowAfterThis: true
+  no-restricted-syntax:
+    - error
+    - ForInStatement
+    - LabeledStatement
+    - WithStatement
+overrides:
+  - files: ['**/*.controller.ts']
+    rules:
+      max-classes-per-file: off
+      class-methods-use-this: off
+  - files: ['**/*.test.ts', '**/__tests__/**']
+    rules:
+      sonarjs/no-identical-functions: off
+      sonarjs/cognitive-complexity: off
+      jest/no-mocks-import: off
+      @typescript-eslint/no-unsafe-assignment: off
+      @typescript-eslint/no-unsafe-member-access: off
+      node/no-unpublished-import: off
+  - files: ['**/*.d.ts']
+    rules:
+      import/no-duplicates: off
+  - files: ['src/routes/**/*.ts']
+    rules:
+      max-params: off
+      express/use-error-handler: off
+settings:
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
+    node:
+      extensions: ['.ts', '.js']
+  express/ignore:
+    - middleware/errorHandler.ts
