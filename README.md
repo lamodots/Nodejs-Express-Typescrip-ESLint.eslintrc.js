@@ -104,3 +104,60 @@ my-project/
 └── src/
 
 ```
+## You can test that ESLint works manually from the terminal:
+
+```batch
+npx eslint 
+
+If it shows errors/warnings, then ESLint is working — now tell VSCode to respect it.
+```
+
+
+## Configure VSCode Settings to Respect ESLint
+
+Go to File > Preferences > Settings  (or press Ctrl + ,), and search for eslint. 
+
+Ensure these settings are enabled: 
+settings.json Directly
+Open the command palette (Ctrl+Shift+P) → type Preferences: Open User Settings (JSON) → Add the following:
+```json
+{
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.options": {
+    "configFile": ".eslintrc.js"
+  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+
+```
+
+## If you're working in a team or want to enforce settings per-project, create a folder:
+
+
+```bash
+.vscode/settings.json
+```
+And put the same settings as above there. This ensures everyone uses the same linting setup.
+
+```json
+
+{
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.options": {
+    "configFile": ".eslintrc.js"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+```
