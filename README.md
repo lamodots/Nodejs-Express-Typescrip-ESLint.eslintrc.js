@@ -94,4 +94,13 @@ import app from '@/app'; // Absolute import allowed
 
 ```
 
-``
+## 🛠 Where Should I Put the Config?
+
+```bash
+my-project/
+├── .eslintrc.js    # or .json or .yml
+├── tsconfig.json
+├── package.json
+└── src/
+
+```
